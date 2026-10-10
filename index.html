@@ -36,24 +36,24 @@ input[type=range]{accent-color:var(--red);width:100%}
 /* ---------- A5 pages ---------- */
 .pages{display:flex;flex-direction:column;gap:18px;align-items:center}
 .page{width:148mm;height:210mm;background:#fff;box-shadow:0 2px 14px rgba(0,0,0,.08);padding:9mm 10mm 10mm;overflow:hidden;position:relative}
-.inner{height:100%;overflow:hidden}
-.hd{display:flex;justify-content:space-between;align-items:flex-start;gap:4mm}
-.hd h2{font-weight:900;color:var(--red);font-size:21pt;letter-spacing:-.03em;line-height:1}
-.hd .kick{font-size:7.4pt;letter-spacing:.28em;text-transform:uppercase;font-weight:700;margin-top:2.5mm}
-.hd .salon{font-size:9.5pt;font-weight:800;margin-top:3mm}
-.hd .ct{font-size:7.6pt;color:#555;margin-top:.8mm;line-height:1.45}
-.hd img{height:16mm;flex:none}
-.note{display:flex;justify-content:space-between;font-size:6.8pt;color:#777;letter-spacing:.06em;text-transform:uppercase;padding:4mm 0 2.5mm;border-bottom:1.5pt solid var(--ink)}
-h3{font-size:12pt;font-weight:800;letter-spacing:-.02em;color:var(--red);padding-top:2.6mm}
-.r{display:flex;align-items:baseline;gap:2mm;padding:.95mm 0;border-bottom:.5pt solid var(--line)}
-.r .c{width:10mm;flex:none;font-size:7.4pt;font-weight:600;color:#8a8a8a}
-.r .n{font-weight:700;font-size:9pt}
-.r .v{font-size:7.6pt;color:#8a8a8a;white-space:nowrap}
-.r .d{flex:1;border-bottom:1pt dotted #b5b5b5;transform:translateY(-.8mm);min-width:3mm}
-.r .u{font-weight:800;font-size:10pt}
+.inner{height:100%;overflow:hidden;--s:1}
+.hd{display:flex;justify-content:space-between;align-items:flex-start;gap:calc(4mm*var(--s))}
+.hd h2{font-weight:900;color:var(--red);font-size:calc(21pt*var(--s));letter-spacing:-.03em;line-height:1}
+.hd .kick{font-size:calc(7.4pt*var(--s));letter-spacing:.28em;text-transform:uppercase;font-weight:700;margin-top:calc(2.5mm*var(--s))}
+.hd .salon{font-size:calc(9.5pt*var(--s));font-weight:800;margin-top:calc(3mm*var(--s))}
+.hd .ct{font-size:calc(7.6pt*var(--s));color:#555;margin-top:.8mm;line-height:1.45}
+.hd img{height:calc(16mm*var(--s));flex:none}
+.note{display:flex;justify-content:space-between;font-size:calc(6.8pt*var(--s));color:#777;letter-spacing:.06em;text-transform:uppercase;padding:calc(4mm*var(--s)) 0 calc(2.5mm*var(--s));border-bottom:calc(1.5pt*var(--s)) solid var(--ink)}
+h3{font-size:calc(12pt*var(--s));font-weight:800;letter-spacing:-.02em;color:var(--red);padding-top:calc(2.6mm*var(--s))}
+.r{display:flex;align-items:baseline;gap:calc(2mm*var(--s));padding:.95mm 0;border-bottom:.5pt solid var(--line)}
+.r .c{width:calc(10mm*var(--s));flex:none;font-size:calc(7.4pt*var(--s));font-weight:600;color:#8a8a8a}
+.r .n{font-weight:700;font-size:calc(9pt*var(--s))}
+.r .v{font-size:calc(7.6pt*var(--s));color:#8a8a8a;white-space:nowrap}
+.r .d{flex:1;border-bottom:calc(1pt*var(--s)) dotted #b5b5b5;transform:translateY(-.8mm);min-width:calc(3mm*var(--s))}
+.r .u{font-weight:800;font-size:calc(10pt*var(--s))}
 .nocode .r .c{display:none}
-.ft{margin-top:4mm;padding-top:2.5mm;border-top:1.5pt solid var(--ink);font-size:7.6pt;line-height:1.6}
-.ft b{font-size:8.4pt}
+.ft{margin-top:calc(4mm*var(--s));padding-top:calc(2.5mm*var(--s));border-top:calc(1.5pt*var(--s)) solid var(--ink);font-size:calc(7.6pt*var(--s));line-height:1.6}
+.ft b{font-size:calc(8.4pt*var(--s))}
 @media (max-width:820px){.app{grid-template-columns:1fr;padding:16px}.ui{position:static}}
 @page{size:A5;margin:0}
 @media print{
@@ -73,8 +73,8 @@ h3{font-size:12pt;font-weight:800;letter-spacing:-.02em;color:var(--red);padding
   <input id="mr" type="range" min="0" max="150" step="1" value="50" aria-label="%"></div>
  <div class="f"><label for="rd" data-t="round"></label>
   <select id="rd"><option value="0" data-t="r0"></option><option value="0.1" data-t="r1"></option><option value="0.5" selected data-t="r5"></option><option value="1" data-t="r10"></option><option value="0.9" data-t="r9"></option></select></div>
- <div class="f"><label for="sn" data-t="studio"></label><input id="sn" type="text" data-p="studioPh"></div>
- <div class="f"><label for="sc" data-t="contact"></label><input id="sc" type="text" data-p="contactPh"></div>
+ <div class="f"><label for="sn" data-t="studio"></label><input id="sn" type="text" maxlength="60" data-p="studioPh"></div>
+ <div class="f"><label for="sc" data-t="contact"></label><input id="sc" type="text" maxlength="140" data-p="contactPh"></div>
  <div class="f"><label for="pl" data-t="plLang"></label><select id="pl"><option value="de">Deutsch</option><option value="ru">Русский</option></select></div>
  <label class="chk"><input id="cd" type="checkbox" checked> <span data-t="code"></span></label>
  <div class="stat" id="st"></div>
@@ -528,18 +528,17 @@ function render(){
  hd.innerHTML='<div><h2>'+P[PL].h+'</h2><p class="kick">'+P[PL].k+'</p>'+(sn?'<p class="salon">'+esc(sn)+'</p>':'')+(sc?'<p class="ct">'+esc(sc)+'</p>':'')+'</div><img src="'+LOGO+'" alt="reNeo cosmetics">';
  blocks.push({e:hd,k:true});
  blocks.push({e:el('div','note','<span>'+P[PL].n1+'</span><span>'+P[PL].n2+'</span>'),k:true});
- for(const s of DATA){blocks.push({e:el('h3',null,PL==='ru'?s.sr:s.s),k:true});
+ DATA.forEach((s,si)=>{blocks.push({e:el('h3',null,PL==='ru'?s.sr:s.s),sec:si});
   for(const i of s.i){const v=price(i.p,m,rd);sum+=v;sumU+=i.u;
-   blocks.push({e:el('div','r','<span class="c">'+i.c+'</span><span class="n">'+i.n+'</span><span class="v">'+i.v+'</span><span class="d"></span><span class="u num">'+eur(v)+'</span>')})}}
+   blocks.push({e:el('div','r','<span class="c">'+i.c+'</span><span class="n">'+i.n+'</span><span class="v">'+i.v+'</span><span class="d"></span><span class="u num">'+eur(v)+'</span>')})}});
  if(sn||sc)blocks.push({e:el('div','ft',(sn?'<b>'+esc(sn)+'</b>':'')+(sn&&sc?'<br>':'')+esc(sc))});
- // paginate off-screen at true size
+ // fixed 2 pages: split before the 4th section, shrink a page slightly if it overflows
  const meas=$('measure');meas.innerHTML='';meas.className=$('cd').checked?'':'nocode';
- let inn=newPage(meas),run=[];
- for(const b of blocks){inn.appendChild(b.e);
-  if(inn.scrollHeight>inn.clientHeight+0.5){
-   const carry=[];for(let j=run.length-1;j>=0&&run[j].k;j--)carry.unshift(run[j]);
-   inn=newPage(meas);for(const c of carry)inn.appendChild(c.e);inn.appendChild(b.e);run=carry.slice()}
-  run.push(b);if(!b.k)run=[]}
+ const splitAt=blocks.findIndex(b=>b.sec===3);
+ [blocks.slice(0,splitAt),blocks.slice(splitAt)].forEach(part=>{const inn=newPage(meas);part.forEach(b=>inn.appendChild(b.e));
+  let lo=0.7,hi=1;inn.style.setProperty('--s',1);
+  if(inn.scrollHeight>inn.clientHeight+0.5){for(let k=0;k<12;k++){const mid=(lo+hi)/2;inn.style.setProperty('--s',mid);
+    if(inn.scrollHeight>inn.clientHeight+0.5)hi=mid;else lo=mid}inn.style.setProperty('--s',lo)}});
  const pages=$('pages');pages.innerHTML='';pages.className='pages'+($('cd').checked?'':' nocode');
  while(meas.firstChild)pages.appendChild(meas.firstChild);
  fit();
